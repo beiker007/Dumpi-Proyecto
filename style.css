@@ -92,7 +92,8 @@ nav {
 .form-group input[type="text"],
 .form-group input[type="number"],
 .form-group input[type="date"] {
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -199,6 +200,19 @@ section td {
   overflow-y: auto;
 }
 
+/* Wrapper para permitir scroll horizontal en tablas en pantallas pequeñas */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Ajuste de logo para pantallas pequeñas */
+.dumpi-logo {
+  max-width: 100%;
+  height: auto;
+}
+
 /* Dashboard resumen */
 #dashboardCont {
   display: flex;
@@ -283,5 +297,18 @@ section td {
     font-size: 1.2em;
     cursor: pointer;
     color: #333;
+  }
+
+  /* Botones del grupo se apilan y ocupan ancho completo en móviles */
+  .button-group {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: stretch;
+  }
+
+  .button-group button {
+    width: 100%;
+    max-width: none;
+    height: 44px;
   }
 }

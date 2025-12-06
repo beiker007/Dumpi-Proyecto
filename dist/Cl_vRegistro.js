@@ -49,13 +49,14 @@ export default class Cl_vRegistro extends Cl_vGeneral {
         let datos = (_b = (_a = this.controlador) === null || _a === void 0 ? void 0 : _a.datosRegistrados()) !== null && _b !== void 0 ? _b : [];
         for (let d of datos) {
             const tr = document.createElement("tr");
+            tr.classList.add("card-row");
             tr.innerHTML = `
-        <td>${d.referencia}</td>
-        <td>${d.concepto}</td>
-        <td>${d.monto}</td>
-        <td>${d.fecha}</td>
-        <td>${d.categoria}</td>
-        <td>${d.tipo}</td>
+        <td data-label="Referencia">${d.referencia}</td>
+        <td data-label="Concepto">${d.concepto}</td>
+        <td data-label="Monto">${d.monto}</td>
+        <td data-label="Fecha">${d.fecha}</td>
+        <td data-label="Categoría">${d.categoria}</td>
+        <td data-label="Tipo">${d.tipo}</td>
       `;
             this.tbody.appendChild(tr);
         }

@@ -1,33 +1,25 @@
-import Cl_mDatos from "./Cl_mDatos.js"; // Modelo de datos
-import Cl_mCategoria from "./Cl_mCategorias.js"; // Modelo de categorías
+import Cl_mDatos from "./Cl_mDatos.js";
+import Cl_mCategoria from "./Cl_mCategorias.js";
+import Cl_mRegistro from "./Cl_mRegistro.js"; // 👈 usa tu modelo de colección
 export default class Cl_controlador {
-    constructor(modeloRegistro, vista, VistaCategoria, modeloCategoria) {
-        // Propiedades modelo
-        this.modeloDatos = []; // Lista de registros
-        this.modeloRegistro = modeloRegistro;
-        this.vistaRegistro = vista;
-        this.modeloCategoria = new Cl_mCategoria(""); // inicializar modelo de categorías
-        this.vista.controlador = this; // Conectar vista con controlador
+    constructor(vista) {
+        this.vista = vista;
+        this.vista.controlador = this;
+        this.modelo = new Cl_mRegistro(); // carga desde localStorage dentro del modelo
+        this.modeloCategoria = new Cl_mCategoria("");
     }
-    /** Agregar un nuevo registro */
     agregarRegistro({ registroData, callback, }) {
-        try {
-            const nuevoDato = new Cl_mDatos(registroData);
-            const error = nuevoDato.error();
-            if (error) {
-                callback(error);
-                return;
-            }
-            this.modeloDatos.push(nuevoDato);
-            callback(false);
-        }
-        catch (e) {
-            callback(e.message);
-        }
+        // construir Cl_mDatos a partir de los datos planos
+        const nuevoDato = new Cl_mDatos(registroData);
+        // delegar en Cl_mRegistro, que valida duplicados + guarda en localStorage
+        this.modelo.agregarRegistro({
+            datos: nuevoDato,
+            callback,
+        });
     }
-    /** Listar registros en formato JSON */
     datosRegistrados() {
-        return this.modeloDatos.map((r) => r.toJSON());
+        // siempre pregunta al modelo, que ya está sincronizado con localStorage
+        return this.modelo.listarRegistro();
     }
     /** Agregar nueva categoría */
     agregarCategoria({ categoriaData, callback, }) {

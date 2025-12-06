@@ -100,18 +100,18 @@ export default class Cl_mCategoria {
 
   /** 🔎 Normalizar: plural + primera letra mayúscula */
   /** Convierte el texto a plural y capitaliza la primera letra */
-private formatearCategoria(nombre: string): string {
-  let n = nombre; // ya está en minúsculas y sin espacios gracias al set
+  private formatearCategoria(nombre: string): string {
+    let n = nombre; // ya está en minúsculas y sin espacios gracias al set
 
-  // Quitar acentos
-  n = n.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    // Quitar acentos
+    n = n.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
-  // Asegurar plural (terminar en "s")
-  if (!n.endsWith("s")) {
-    n = n + "s";
+    // Asegurar plural (terminar en "s")
+    if (!n.endsWith("s")) {
+      n = n + "s";
+    }
+
+    // Capitalizar primera letra
+    return n.charAt(0).toUpperCase() + n.slice(1);
   }
-
-  // Capitalizar primera letra
-  return n.charAt(0).toUpperCase() + n.slice(1);
-}
 }
